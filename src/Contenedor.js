@@ -1,4 +1,5 @@
 const fs = require('fs') ;
+const geRandomInt = require('./random');
 
 class Contenedor {
 
@@ -33,6 +34,13 @@ class Contenedor {
         }
     }
 
+    async getRandom() {
+        const objs = await this.getAll();
+        return !objs.length
+            ? {}
+            : objs[geRandomInt(0, objs.length)];
+    }
+
     async deleteById(id) {
         const objs = await this.getAll();
         const newObjs = objs.filter(obj => obj.id !== id);
@@ -51,47 +59,14 @@ class Contenedor {
             throw new Error(error);
         }
     }
+
+
 }
 
+module.exports = Contenedor;
 
-async function main() {
-    // Instanciar el objeto
-    const contenedor = new Contenedor('./archivos/productos.txt');
 
-    // Pruebas sin archivo
-    console.log('Archivo vacio, getAll(): ', await contenedor.getAll());
-    console.log('Archivo vacio, getById(4): ', await contenedor.getById(4));
 
-    // Agregar productos
-    console.log('Agregar producto', await contenedor.save({
-        title: 'zapatilla',
-        price: 15450.90,
-        brand: 'Adidas'
-    }));
-    console.log('Agregar producto', await contenedor.save({
-        title: 'Jeans',
-        price: 30450.90,
-        brand: 'Levis'
-    }));
-    console.log('Agregar producto', await contenedor.save({
-        title: 'Remera',
-        price: 3045.80,
-        brand: 'Puma'
-    }));
-
-    // Pruebas archivo con registros
-    console.log('Producto existente, getById(2): ', await contenedor.getById(2));
-    console.log('Producto inexistente, getById(4): ', await contenedor.getById(4));
-    console.log('Mostrar todos los productos', await contenedor.getAll());
-    console.log('Eliminar 1 producto', await contenedor.deleteById(2));
-    console.log('Mostrar todos los productos', await contenedor.getAll());
-
-    // Pruebas vaciar al archivo
-    console.log('Eliminar todos', await contenedor.deleteAll());
-    console.log('Mostrar todos los productos', await contenedor.getAll());
-}
-
-main().then();
 
 
 
