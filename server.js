@@ -1,25 +1,31 @@
+/* ------------------- Modules ------------------- */
 const express = require('express');
-const Contenerdor = require('./src/Contenedor');
-const PORT = process.env.PORT || 8080;
-
-const contenedor = new Contenerdor('./db_files/productos.txt');
-
+const routerProductos = require("./src/routes/productos.routes");
 
 const app = express();
-app.get('/productos', async (req, resp)=> {
-    resp.send(await contenedor.getAll());
+
+/* ------------------- Middleware ------------------- */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.static(__dirname + '/public'));
+
+
+/* ------------------- Routes ------------------- */
+app.use('/api/productos', routerProductos);
+
+
+/* ------------------- Middleware Errores ------------------- */
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
-app.get('/productoRandom', async (req, resp)=> {
-    resp.send(await contenedor.getRandom());
-})
 
-app.get('/*', async (req, resp)=> {
-    resp.send(`404 - not found`);
-});
-
-
+/* ------------------- Server ------------------- */
+const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, ()=> {
     console.log(`Server on ->  ${JSON.stringify(server.address())}`);
-    console.log()
+});
+server.on('error', error => {
+    console.error(`Error en el servidor ${error}`);
 });
