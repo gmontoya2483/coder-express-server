@@ -1,0 +1,12 @@
+div(class="table-responsive")
+    table.table.table-dark
+        tr(style='color: yellow;')
+            th Título
+            th precio
+            th imagen
+        each item in products
+            tr
+                td=item.title
+                td=item.price
+                td
+                    img(width="30" src=item.thumbnail, alt="")

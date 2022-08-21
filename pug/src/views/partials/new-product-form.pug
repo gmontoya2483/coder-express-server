@@ -1,0 +1,11 @@
+form(action="/productos" method="post")
+    div(class="form-group mb-3")
+        label(for="title") Título
+        input(id="title" class="form-control" type="text" name="title")
+    .form-group.mb-3
+        label(for='price') Price
+        input(id="price" class="form-control" type="text" name="price")
+    .form-group.mb-3
+        label(for='thumbnail') Url
+        input#thumbnail.form-control(type='text' name='thumbnail')
+    button(class="btn btn-primary mt-3 mb-5") Enviar
