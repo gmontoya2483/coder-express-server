@@ -1,6 +1,5 @@
 /* ------------------- Modules ------------------- */
 const express = require('express');
-const exphbs = require('express-handlebars');
 const path = require('path');
 
 const routerApiProductos = require("./src/routes/api.productos.routes");
@@ -15,13 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 //Motor de plantillas
 app.set('views', path.join(__dirname,'./src/views'));
-app.set('view engine', 'hbs');
-app.engine('hbs', exphbs.engine({
-    defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    extname: 'hbs'
-}));
+app.set('view engine', 'ejs');
 
 /* ------------------- Routes ------------------- */
 
