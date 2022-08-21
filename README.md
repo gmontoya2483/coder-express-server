@@ -46,5 +46,29 @@ npm install -g nodemon
 >npm start
 ```
 
+### Handlebars
+
+```console
+> cd hbs
+> npm run dev
+```
+ó
+```console
+> cd hbs
+>npm start
+```
+
+### Ejs
+
+```console
+> cd ejs
+> npm run dev
+```
+ó
+```console
+> cd ejs
+>npm start
+```
+
 
 
