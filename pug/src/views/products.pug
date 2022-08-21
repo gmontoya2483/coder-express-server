@@ -1,0 +1,10 @@
+extends layouts/main
+block vista
+    div
+        h2 Productos
+        br
+        a(role="button" href="/" class="btn btn-secondary mb-3") Nuevo Producto
+        if products.length > 0
+            include partials/table-products
+        else
+            h3(class="alert alert-warning")='No se encontraron productos'

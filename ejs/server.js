@@ -1,5 +1,8 @@
 /* ------------------- Modules ------------------- */
 const express = require('express');
+const path = require('path');
+
+const routerApiProductos = require("./src/routes/api.productos.routes");
 const routerProductos = require("./src/routes/productos.routes");
 
 const app = express();
@@ -9,9 +12,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/public'));
 
+//Motor de plantillas
+app.set('views', path.join(__dirname,'./src/views'));
+app.set('view engine', 'ejs');
 
 /* ------------------- Routes ------------------- */
-app.use('/api/productos', routerProductos);
+
+app.get('/', (req, res) => {
+    res.render('new-product');
+});
+
+app.use('/api/productos', routerApiProductos);
+app.use('/productos', routerProductos);
 
 
 /* ------------------- Middleware Errores ------------------- */

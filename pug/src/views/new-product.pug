@@ -1,0 +1,8 @@
+extends layouts/main
+
+block vista
+    div(class="container")
+        h2 Ingrese Producto
+        br
+        a(role="button" href="/productos" class="btn btn-secondary mb-3") Productos
+        include partials/new-product-form
