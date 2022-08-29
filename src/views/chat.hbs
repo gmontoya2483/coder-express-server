@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Centro de Mensajes</h2>
+    <br>
+    <a href="/" class="btn btn-secondary mb-3" role="button">Nuevo Producto</a>
+    <a class="btn btn-secondary mb-3" role="button" href="/productos">Productos</a>
+
+    <form>
+        <div class="mb-3">
+            <label for="user">User</label>
+            <input type="text" class="form-control" name="user" id="user">
+        </div>
+        <div class="mb-3">
+            <label for="msg">Mensaje</label>
+            <textarea  rows="4"  class="form-control" name="msg" id="msg"></textarea>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="enviarMensaje()">Enviar</button>
+    </form>
+    <hr>
+    <div id="chat">
+        <!- The messages are rendered here ->
+    </div>
+
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
