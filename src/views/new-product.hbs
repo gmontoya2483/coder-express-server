@@ -1,0 +1,12 @@
+<div class="container">
+    <h2>Ingrese Producto</h2>
+    <br>
+    <a class="btn btn-secondary mb-3" role="button" href="/productos">Productos</a>
+    <a href="/chat" class="btn btn-secondary mb-3" role="button">Centro de mensajes</a>
+    {{> new-product-form }}
+    <hr>
+    {{> table-products }}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

@@ -2,30 +2,19 @@
 
 ## Consigna
 
-1) Utilizando la misma API de productos del proyecto entregable de la clase anterior, construir un web server (no REST) que incorpore:
+1) Modificar el último entregable para que disponga de un canal de websocket que permita representar, por debajo del formulario de ingreso, una tabla con la lista de productos en tiempo real.
 
-   - Un formulario de carga de productos en la ruta raíz (configurar la ruta '/productos' para recibir el POST, y redirigir al mismo formulario).
-   - Una vista de los productos cargados (utilizando plantillas de handlebars) en la ruta GET '/productos'.
-   - Ambas páginas contarán con un botón que redirija a la otra.
+   - Puede haber varios clientes conectados simultáneamente y en cada uno de ellos se reflejarán los cambios que se realicen en los productos sin necesidad de recargar la vista.
+   - Cuando un cliente se conecte, recibirá la lista de productos a representar en la vista.
 
 
-2) Manteniendo la misma funcionalidad reemplazar el motor de plantillas handlebars por __pug__.
-2) Manteniendo la misma funcionalidad reemplazar el motor de plantillas handlebars por __ejs__.
-3) Por escrito, indicar cuál de los tres motores de plantillas prefieres para tu proyecto y por qué.
 
-### Aspectos a incluir en el entregable:
-
-- Realizar las plantillas correspondientes que permitan recorrer el array de productos y representarlo en forma de tabla dinámica, siendo sus cabeceras el nombre de producto, el precio y su foto (la foto se mostrará como un imágen en la tabla)
-- En el caso de no encontrarse datos, mostrar el mensaje: 'No hay productos'.
-
-### Sugerencias:
-
-- Utilizar [iconfinder](https://www.iconfinder.com/free_icons) para obtener la url de las imágenes de los productos (click derecho sobre la imagen -> copiar dirección de la imagen)
-
-### Opcional:
-
-- Utilizar bootstrap para maquetar la vista creada por dicho motor de plantillas y el formulario de ingreso de productos.
-
+2) Añadiremos al proyecto un canal de chat entre los clientes y el servidor.
+   - En la parte inferior del formulario de ingreso se presentará el centro de mensajes almacenados en el servidor, donde figuren los mensajes de todos los usuarios identificados por su email.
+   - El formato a representar será: email (texto negrita en azul) [fecha y hora (DD/MM/YYYY HH:MM:SS)](texto normal en marrón) : mensaje (texto italic en verde)
+   - Además incorporar dos elementos de entrada: uno para que el usuario ingrese su email (obligatorio para poder utilizar el chat) y otro para ingresar mensajes y enviarlos mediante un botón.
+   - Los mensajes deben persistir en el servidor en un archivo (ver segundo entregable).
+ 
 
 ## Ejecución
 
@@ -34,41 +23,14 @@ Para poder ejecutar el servidor en modo Desarrollo se debe tener instalado en fo
 npm install -g nodemon
 ```
 
-### Pug
-
 ```console
-> cd pug
 > npm run dev
 ```
 ó
 ```console
-> cd pug
->npm start
+> npm start
 ```
 
-### Handlebars
-
-```console
-> cd hbs
-> npm run dev
-```
-ó
-```console
-> cd hbs
->npm start
-```
-
-### Ejs
-
-```console
-> cd ejs
-> npm run dev
-```
-ó
-```console
-> cd ejs
->npm start
-```
 
 
 
