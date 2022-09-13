@@ -1,14 +1,22 @@
 /* ------------------- Modules ------------------- */
-const express = require('express');
-const exphbs = require('express-handlebars');
-const path = require('path');
-const { Server: HttpServer } = require('http');
-const { Server: IOServer } = require('socket.io');
+import express from 'express';
+import exphbs from 'express-handlebars';
+import {fileURLToPath} from "url";
+import path, { dirname } from 'path';
+import { Server as HttpServer } from 'http';
+import { Server as IOServer} from 'socket.io';
 
-const routerApiProductos = require("./src/routes/api.productos.routes");
-const routerProductos = require("./src/routes/productos.routes");
-const routerChat = require("./src/routes/chat.routes");
-const Contenerdor = require("./src/Contenedor");
+
+import {routerProductos} from "./src/routes/productos.routes.js";
+import {routerChat} from "./src/routes/chat.routes.js";
+import {Contenedor} from "./src/Contenedor.js";
+import {routerApiProductos} from "./src/routes/api.productos.routes.js";
+import {config} from "./src/utils/config.js";
+
+
+/* -------------------- Dirname ----------------------------*/
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /*---------------------- Instancia de servidor ----------------------*/
 const app = express();
@@ -34,13 +42,14 @@ app.engine('hbs', exphbs.engine({
 /* ------------------- Routes ------------------- */
 
 app.get('/', async (req, res) => {
-    const contenedor = new Contenerdor('./db_files/productos.txt')
+    const contenedor = new Contenedor(config.stock_db, 'productos');
     const products = await contenedor.getAll();
+    await contenedor.closeConnection();
     res.render('new-product', { products });
 });
 
 app.use('/productos', routerProductos);
-app.use('/api/productos', routerApiProductos);
+app.use('/api/productos', routerApiProductos );
 app.use('/chat', routerChat);
 
 
@@ -67,15 +76,17 @@ io.on('connection', (socket)=>{
     // Chat handler
     socket.on('from-client-chat', async () => {
         console.log(`Cliente ${ socket.id } conectado al chat`);
-        const contenedor = new Contenerdor('./db_files/chat.txt');
+        const contenedor = new Contenedor(config.chat_db, 'mensajes')
         const messages = await contenedor.getAll();
+        await contenedor.closeConnection();
         socket.emit('from-server-messages', messages);
     })
 
     socket.on('from-client-message', async (mensaje) => {
-        const contenedor = new Contenerdor('./db_files/chat.txt');
+        const contenedor = new Contenedor(config.chat_db, 'mensajes')
         await contenedor.create({ ...mensaje, date: new Date() });
         const messages = await contenedor.getAll();
+        await contenedor.closeConnection();
         io.sockets.emit('from-server-messages', messages );
     });
 
@@ -85,11 +96,12 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('from-client-new-product', async (product) => {
-        const contenedor = new Contenerdor('./db_files/productos.txt');
+        const contenedor = new Contenedor(config.stock_db, 'productos')
         const { title, price, thumbnail } = product;
         const priceFloat = parseFloat(price);
         const newProduct= await contenedor.create({title, price:priceFloat, thumbnail});
-        io.sockets.emit('from-sever-new-product', newProduct);
+        await contenedor.closeConnection();
+        io.sockets.emit('from-sever-new-product', {title, price, thumbnail});
     });
 
 });
