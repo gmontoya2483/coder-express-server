@@ -21,5 +21,8 @@ export const config = {
             filename: path.join(__dirname, '../../DB/ecommerce.db3')
         },
         useNullAsDefault: true
+    },
+    axios : {
+        baseUrl: 'http://localhost:8080'
     }
 }
