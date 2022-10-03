@@ -11,6 +11,7 @@ import {routerProductos} from "./src/routes/productos.routes.js";
 import {routerChat} from "./src/routes/chat.routes.js";
 import {Contenedor} from "./src/Contenedor.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
+import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
 import {config} from "./src/utils/config.js";
 
 
@@ -50,6 +51,7 @@ app.get('/', async (req, res) => {
 
 app.use('/productos', routerProductos);
 app.use('/api/productos', routerApiProductos );
+app.use('/api/productos-test', routerApiProductosTest);
 app.use('/chat', routerChat);
 
 
