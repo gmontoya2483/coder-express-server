@@ -1,11 +1,14 @@
+
+
 const socket = io();
 
 socket.on('from-server-request-socket-handler', ()=> {
     socket.emit('from-client-chat');
 });
 
-socket.on('from-server-messages', messages => {
+socket.on('from-server-messages', normalizedMessages => {
     //TODO: desnormalizar y calcular la compresion
+    const messages = denormalizeData(normalizedMessages)
     console.log(messages);
     renderMessages(messages);
 });
@@ -57,13 +60,42 @@ function enviarMensaje() {
 function renderMessages(messages) {
     const mensajesHTMLBody = messages.map((msg)=>{
         return `<span>
-                    <span style="color: blue;"><b>${ msg.author.email }</b></span> 
+                    <span style="color: blue;"><b>${  msg.author.id }</b></span> 
                     <span style="color: brown;"> [${ msg.date }]:</span> 
                     <span style="color: green; font-style: italic;">${ msg.text }</span>
                     <img width="30px" src="${msg.author.avatar}" alt="${msg.author.nombre} ${msg.author.apellido} ">
                 </span>`;
     }).join('<br>');
     document.querySelector('#chat').innerHTML = mensajesHTMLBody;
+}
+
+
+
+
+function denormalizeData(normalizedMessages)  {
+
+    const compresion = document.querySelector('#compresion');
+
+    const authorSchema = new normalizr.schema.Entity('author');
+
+    const mensajeSchema = new normalizr.schema.Entity('mensaje', {
+        author: authorSchema
+    });
+
+    const dataSchema =  new normalizr.schema.Entity('mensajes', {
+        mensajes: [mensajeSchema]
+    });
+
+    const denormalizedData = normalizr.denormalize(normalizedMessages.result, dataSchema, normalizedMessages.entities);
+
+    // Calculo porcentaje de compresion
+    const longN = JSON.stringify(normalizedMessages).length
+    const longD = JSON.stringify(denormalizedData).length
+    const porcentaje = ((longN*100)/longD).toFixed(2)
+    compresion.innerHTML = `<strong>${porcentaje}%</strong>`
+
+    return denormalizedData.mensajes
+
 }
 
 

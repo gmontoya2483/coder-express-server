@@ -14,6 +14,7 @@ import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
 import {config} from "./src/utils/config.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
+import {normalizeData} from "./src/utils/messages.normalize.js";
 
 
 /* -------------------- Dirname ----------------------------*/
@@ -83,7 +84,8 @@ io.on('connection', (socket)=>{
         const contenedor = new ChatsDao();
         const messages = await contenedor.getAll();
         await contenedor.closeConnection();
-        socket.emit('from-server-messages', messages); //TODO: normalizar
+        const normalizedMessages = normalizeData(messages);
+        socket.emit('from-server-messages', normalizedMessages); //TODO: normalizar
     })
 
     socket.on('from-client-message', async (mensaje) => {
@@ -91,7 +93,8 @@ io.on('connection', (socket)=>{
         await contenedor.create({ ...mensaje, date: new Date() });
         const messages = await contenedor.getAll();
         await contenedor.closeConnection();
-        io.sockets.emit('from-server-messages', messages ); //TODO: normalizar
+        const normalizedMessages = normalizeData(messages);
+        io.sockets.emit('from-server-messages', normalizedMessages ); //TODO: normalizar
     });
 
     // Products handler
