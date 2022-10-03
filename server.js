@@ -9,10 +9,11 @@ import { Server as IOServer} from 'socket.io';
 
 import {routerProductos} from "./src/routes/productos.routes.js";
 import {routerChat} from "./src/routes/chat.routes.js";
-import {Contenedor} from "./src/Contenedor.js";
+import {ContenedorKnex} from "./src/contenedores/contenedorKnex.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
 import {config} from "./src/utils/config.js";
+import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 
 
 /* -------------------- Dirname ----------------------------*/
@@ -43,7 +44,7 @@ app.engine('hbs', exphbs.engine({
 /* ------------------- Routes ------------------- */
 
 app.get('/', async (req, res) => {
-    const contenedor = new Contenedor(config.stock_db, 'productos');
+    const contenedor = new ContenedorKnex(config.stock_db, 'productos');
     const products = await contenedor.getAll();
     await contenedor.closeConnection();
     res.render('new-product', { products });
@@ -78,18 +79,19 @@ io.on('connection', (socket)=>{
     // Chat handler
     socket.on('from-client-chat', async () => {
         console.log(`Cliente ${ socket.id } conectado al chat`);
-        const contenedor = new Contenedor(config.chat_db, 'mensajes')
+        // const contenedor = new ContenedorKnex(config.chat_db, 'mensajes')
+        const contenedor = new ChatsDao();
         const messages = await contenedor.getAll();
         await contenedor.closeConnection();
-        socket.emit('from-server-messages', messages);
+        socket.emit('from-server-messages', messages); //TODO: normalizar
     })
 
     socket.on('from-client-message', async (mensaje) => {
-        const contenedor = new Contenedor(config.chat_db, 'mensajes')
+        const contenedor = new ChatsDao()
         await contenedor.create({ ...mensaje, date: new Date() });
         const messages = await contenedor.getAll();
         await contenedor.closeConnection();
-        io.sockets.emit('from-server-messages', messages );
+        io.sockets.emit('from-server-messages', messages ); //TODO: normalizar
     });
 
     // Products handler
@@ -98,7 +100,7 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('from-client-new-product', async (product) => {
-        const contenedor = new Contenedor(config.stock_db, 'productos')
+        const contenedor = new ProductosDao();
         const { title, price, thumbnail } = product;
         const priceFloat = parseFloat(price);
         const newProduct= await contenedor.create({title, price:priceFloat, thumbnail});

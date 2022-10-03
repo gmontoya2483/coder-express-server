@@ -1,7 +1,7 @@
 import knex from "knex";
 
 
-export class Contenedor {
+export class ContenedorKnex {
 
     constructor(config, table) {
         this.knexCli = knex(config);

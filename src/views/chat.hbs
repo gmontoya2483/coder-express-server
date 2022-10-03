@@ -7,8 +7,28 @@
 
     <form>
         <div class="mb-3">
-            <label for="user">User</label>
-            <input type="text" class="form-control" name="user" id="user">
+            <label for="user">Email</label>
+            <input type="text" class="form-control" name="email" id="email">
+        </div>
+        <div class="mb-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre">
+        </div>
+        <div class="mb-3">
+            <label for="apellido">Apellido</label>
+            <input type="text" class="form-control" name="apellido" id="apellido">
+        </div>
+        <div class="mb-3">
+            <label for="edad">Edad</label>
+            <input type="number" class="form-control" name="edad" id="edad">
+        </div>
+        <div class="mb-3">
+            <label for="alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="alias">
+        </div>
+        <div class="mb-3">
+            <label for="avatar">Avatar</label>
+            <input type="text" class="form-control" name="avatar" id="avatar">
         </div>
         <div class="mb-3">
             <label for="msg">Mensaje</label>
@@ -26,4 +46,5 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
 <script src="/js/chat.js"></script>
