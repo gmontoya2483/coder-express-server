@@ -6,7 +6,7 @@
       "apellido": "Montoya",
       "edad": "47",
       "alias": "gabi",
-      "avatar": "sdff"
+      "avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/indian_man_male_person-64.png"
     },
     "text": "fsdfs",
     "date": "2022-10-03T02:08:11.822Z",
@@ -19,7 +19,7 @@
       "apellido": "Montoya",
       "edad": "47",
       "alias": "gabi",
-      "avatar": "sdff"
+      "avatar": "https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/indian_man_male_person-64.png"
     },
     "text": "dsfsdfsdfsdf",
     "date": "2022-10-03T02:08:20.856Z",

@@ -60,6 +60,7 @@ function renderMessages(messages) {
                     <span style="color: blue;"><b>${ msg.author.email }</b></span> 
                     <span style="color: brown;"> [${ msg.date }]:</span> 
                     <span style="color: green; font-style: italic;">${ msg.text }</span>
+                    <img width="30px" src="${msg.author.avatar}" alt="${msg.author.nombre} ${msg.author.apellido} ">
                 </span>`;
     }).join('<br>');
     document.querySelector('#chat').innerHTML = mensajesHTMLBody;
