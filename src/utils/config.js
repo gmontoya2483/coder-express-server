@@ -24,5 +24,9 @@ export const config = {
     },
     axios : {
         baseUrl: 'http://localhost:8080'
+    },
+    session_mongo: {
+        secret_key: "1234567",
+        url: "mongodb+srv://db_usr:db_usr@cluster0.6bkwn.mongodb.net/coder"
     }
 }

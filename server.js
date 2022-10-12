@@ -12,9 +12,20 @@ import {routerChat} from "./src/routes/chat.routes.js";
 import {ContenedorKnex} from "./src/contenedores/contenedorKnex.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
+import {routerLogin} from "./src/routes/login.route.js";
 import {config} from "./src/utils/config.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 import {normalizeData} from "./src/utils/messages.normalize.js";
+
+//session persistencia mongo
+import connectMongo from 'connect-mongo';
+import {Authorization} from "./src/middlewares/auth.middleware.js";
+import session from "express-session";
+import {routerLogout} from "./src/routes/logout.route.js";
+const MongoStore = connectMongo.create({
+    mongoUrl:config.session_mongo.url,
+    ttl: 60
+});
 
 
 /* -------------------- Dirname ----------------------------*/
@@ -31,6 +42,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/public'));
 
+// Session Setup
+app.use(session({
+    store: MongoStore,
+    secret: config.session_mongo.secret_key,
+    resave: true,
+    saveUninitialized: true
+}))
+
 //Motor de plantillas
 app.set('views', path.join(__dirname,'./src/views'));
 app.set('view engine', 'hbs');
@@ -44,18 +63,21 @@ app.engine('hbs', exphbs.engine({
 
 /* ------------------- Routes ------------------- */
 
-app.get('/', async (req, res) => {
+
+
+app.get('/',[Authorization], async (req, res) => {
     const contenedor = new ContenedorKnex(config.stock_db, 'productos');
     const products = await contenedor.getAll();
     await contenedor.closeConnection();
-    res.render('new-product', { products });
+    res.render('new-product', { products, username: req.session.username });
 });
 
-app.use('/productos', routerProductos);
-app.use('/api/productos', routerApiProductos );
-app.use('/api/productos-test', routerApiProductosTest);
-app.use('/chat', routerChat);
-
+app.use('/productos', [Authorization] ,routerProductos);
+app.use('/api/productos' ,routerApiProductos );
+app.use('/api/productos-test',routerApiProductosTest);
+app.use('/chat',  [Authorization], routerChat);
+app.use('/login', routerLogin);
+app.use('/logout', [Authorization], routerLogout);
 
 /* ------------------- Middleware Errores ------------------- */
 app.use(function(err, req, res, next) {
