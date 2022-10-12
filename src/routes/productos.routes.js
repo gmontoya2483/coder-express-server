@@ -11,7 +11,7 @@ routerProductos.get('/', async (req, res) => {
     const contenedor = new ProductosDao();
     const products = await contenedor.getAll();
     await contenedor.closeConnection()
-    res.render('products', { products })
+    res.render('products', { products, username: req.session.username })
 })
 
 routerProductos.post('/', async (req, res) => {
@@ -26,5 +26,5 @@ routerProductos.post('/', async (req, res) => {
 routerProductos.get('/test', async(req, res)=> {
     const url = `${config.axios.baseUrl}/api/productos-test`
     const {data: products} = await axios.get(url);
-    res.render('products-test', { products })
+    res.render('products-test', { products, username: req.session.username })
 });
