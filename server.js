@@ -22,8 +22,9 @@ import connectMongo from 'connect-mongo';
 import {Authorization} from "./src/middlewares/auth.middleware.js";
 import session from "express-session";
 import {routerLogout} from "./src/routes/logout.route.js";
+import {routerRegister} from "./src/routes/register.route.js";
 const MongoStore = connectMongo.create({
-    mongoUrl:config.session_mongo.url,
+    mongoUrl:config.mongo_db.url,
     ttl: 60
 });
 
@@ -45,7 +46,7 @@ app.use(express.static(__dirname + '/public'));
 // Session Setup
 app.use(session({
     store: MongoStore,
-    secret: config.session_mongo.secret_key,
+    secret: config.mongo_db.secret_key,
     resave: true,
     saveUninitialized: true
 }))
@@ -77,6 +78,7 @@ app.use('/api/productos' ,routerApiProductos );
 app.use('/api/productos-test',routerApiProductosTest);
 app.use('/chat',  [Authorization], routerChat);
 app.use('/login', routerLogin);
+app.use('/register', routerRegister);
 app.use('/logout', [Authorization], routerLogout);
 
 /* ------------------- Middleware Errores ------------------- */
