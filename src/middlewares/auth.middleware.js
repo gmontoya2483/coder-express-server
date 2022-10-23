@@ -1,7 +1,7 @@
 export const Authorization = (req, res, next) => {
-    if (req.session?.username) {
+    if(!req.isAuthenticated())
+        return res.redirect('/login');
 
-       return next();
-    }
-    return res.redirect('/login');
+    next();
+
 }
