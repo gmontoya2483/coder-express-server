@@ -3,5 +3,6 @@ export const routerChat = express.Router();
 
 
 routerChat.get('/', async (req, res) => {
-    res.render('chat', {username: req.session.username} )
+    const { email: username } = await req.user;
+    res.render('chat', {username} )
 })
