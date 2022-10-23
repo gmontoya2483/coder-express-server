@@ -23,9 +23,12 @@ import {Authorization} from "./src/middlewares/auth.middleware.js";
 import session from "express-session";
 import {routerLogout} from "./src/routes/logout.route.js";
 import {routerRegister} from "./src/routes/register.route.js";
+import passport from "passport";
+
+// MongoStore (session)
 const MongoStore = connectMongo.create({
     mongoUrl:config.mongo_db.url,
-    ttl: 60
+    ttl: 600
 });
 
 
@@ -49,7 +52,11 @@ app.use(session({
     secret: config.mongo_db.secret_key,
     resave: true,
     saveUninitialized: true
-}))
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //Motor de plantillas
 app.set('views', path.join(__dirname,'./src/views'));

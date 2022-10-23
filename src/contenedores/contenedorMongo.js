@@ -54,6 +54,15 @@ export class ContenedorMongo {
         }
     }
 
+    async getByEmail(email) {
+        try {
+            return  await this.entityModel.findOne({email});
+        } catch (err) {
+            console.error(`${this.entityModel.modelName}, ${ err }`);
+            throw new Error(`No se pudo buscar entidad - ${this.entityModel.modelName}`);
+        }
+    }
+
     async update(data) {
         const {id, ...obj}  = data;
         try {
