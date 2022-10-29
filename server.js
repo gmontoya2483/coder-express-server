@@ -13,7 +13,7 @@ import {routerChat} from "./src/routes/chat.routes.js";
 import {ContenedorKnex} from "./src/contenedores/contenedorKnex.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
-import {routerLogin} from "./src/routes/login.route.js";
+import {routerLogin} from "./src/routes/login.routes.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 import {normalizeData} from "./src/utils/messages.normalize.js";
 
@@ -21,9 +21,10 @@ import {normalizeData} from "./src/utils/messages.normalize.js";
 import connectMongo from 'connect-mongo';
 import {Authorization} from "./src/middlewares/auth.middleware.js";
 import session from "express-session";
-import {routerLogout} from "./src/routes/logout.route.js";
-import {routerRegister} from "./src/routes/register.route.js";
+import {routerLogout} from "./src/routes/logout.routes.js";
+import {routerRegister} from "./src/routes/register.routes.js";
 import passport from "passport";
+import {routerInfo} from "./src/routes/info.routes.js";
 
 // MongoStore (session)
 const MongoStore = connectMongo.create({
@@ -84,6 +85,7 @@ app.use('/chat',  [Authorization], routerChat);
 app.use('/login', routerLogin);
 app.use('/register', routerRegister);
 app.use('/logout', [Authorization], routerLogout);
+app.use('/info', [Authorization], routerInfo);
 
 /* ------------------- Middleware Errores ------------------- */
 app.use(function(err, req, res, next) {

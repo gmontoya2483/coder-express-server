@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 export const config = {
     server: {
-        port: args.port
+        port: args.port,
     },
     stock_db: {
         client: 'mysql',
