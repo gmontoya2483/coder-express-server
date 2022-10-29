@@ -7,13 +7,13 @@ import { Server as HttpServer } from 'http';
 import { Server as IOServer} from 'socket.io';
 
 
+import {config} from "./src/utils/config.js";
 import {routerProductos} from "./src/routes/productos.routes.js";
 import {routerChat} from "./src/routes/chat.routes.js";
 import {ContenedorKnex} from "./src/contenedores/contenedorKnex.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
 import {routerLogin} from "./src/routes/login.route.js";
-import {config} from "./src/utils/config.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 import {normalizeData} from "./src/utils/messages.normalize.js";
 
@@ -70,9 +70,6 @@ app.engine('hbs', exphbs.engine({
 
 
 /* ------------------- Routes ------------------- */
-
-
-
 app.get('/',[Authorization], async (req, res) => {
     const contenedor = new ContenedorKnex(config.stock_db, 'productos');
     const products = await contenedor.getAll();
@@ -95,8 +92,7 @@ app.use(function(err, req, res, next) {
 });
 
 /* ------------------- Server ------------------- */
-const PORT = process.env.PORT || 8080;
-const server = httpServer.listen(PORT, ()=> {
+const server = httpServer.listen(config.server.port, ()=> {
     console.log(`Server on ->  ${JSON.stringify(server.address())}`);
 });
 server.on('error', error => {

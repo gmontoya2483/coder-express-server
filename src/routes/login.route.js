@@ -13,7 +13,7 @@ const contenedor = new UsuariosDao();
 
 passport.use(new LocalStrategy(
     async function(username, password, done) {
-        console.log(`${username} ${password}`)
+        // console.log(`${username} ${password}`)
         //Logica para validar si un usuario existe
         const existeUsuario = await contenedor.getByEmail(username);
         if (!existeUsuario)
