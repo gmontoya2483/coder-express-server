@@ -25,6 +25,7 @@ import {routerLogout} from "./src/routes/logout.routes.js";
 import {routerRegister} from "./src/routes/register.routes.js";
 import passport from "passport";
 import {routerInfo} from "./src/routes/info.routes.js";
+import {routerApiRandoms} from "./src/routes/api.randoms.routes.js";
 
 // MongoStore (session)
 const MongoStore = connectMongo.create({
@@ -81,6 +82,7 @@ app.get('/',[Authorization], async (req, res) => {
 app.use('/productos', [Authorization] ,routerProductos);
 app.use('/api/productos' ,routerApiProductos );
 app.use('/api/productos-test',routerApiProductosTest);
+app.use('/api/randoms',routerApiRandoms);
 app.use('/chat',  [Authorization], routerChat);
 app.use('/login', routerLogin);
 app.use('/register', routerRegister);

@@ -1,5 +1,4 @@
 import express from "express";
-import {config} from "../utils/config.js";
 export const routerInfo = express.Router();
 
 routerInfo.get('/', async (req, res) => {
