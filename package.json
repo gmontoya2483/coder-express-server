@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
+    "dev:8081": "nodemon server.js -p 8081",
     "start": "node server.js",
     "build:db": "node src/batch/createDbTables.js"
   },
@@ -19,10 +20,12 @@
     "bcrypt": "^5.1.0",
     "better-sqlite3": "^7.6.2",
     "connect-mongo": "^4.6.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "knex": "^2.3.0",
+    "minimist": "^1.2.7",
     "mongoose": "^6.6.7",
     "mysql": "^2.18.1",
     "normalizr": "^3.6.2",
