@@ -5,6 +5,8 @@ import {fileURLToPath} from "url";
 import path, { dirname } from 'path';
 import { Server as HttpServer } from 'http';
 import { Server as IOServer} from 'socket.io';
+import cluster from 'cluster';
+import os from 'os';
 
 
 import {config} from "./src/utils/config.js";
@@ -96,12 +98,28 @@ app.use(function(err, req, res, next) {
 });
 
 /* ------------------- Server ------------------- */
-const server = httpServer.listen(config.server.port, ()=> {
-    console.log(`Server on ->  ${JSON.stringify(server.address())}`);
-});
-server.on('error', error => {
-    console.error(`Error en el servidor ${error}`);
-});
+
+if (cluster.isPrimary && config.server.mode === 'CLUSTER') {
+    const CPU_CORES = os.cpus().length;
+
+    for (let i = 0; i < CPU_CORES; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('exit', worker => {
+        console.log(`Worker ${process.pid} ${worker.id} ${worker.pid} finalizo ${new Date().toLocaleString()}`);
+        cluster.fork();
+    });
+
+} else {
+    const server = httpServer.listen(config.server.port, ()=> {
+        console.log(`Server on ->  ${JSON.stringify(server.address())}`);
+    });
+    server.on('error', error => {
+        console.error(`Error en el servidor ${error}`);
+    });
+}
+
 
 /* ---------------------- WebSocket ----------------------*/
 io.on('connection', (socket)=>{

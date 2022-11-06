@@ -36,6 +36,15 @@ Para poder ejecutar el servidor en modo Desarrollo se debe tener instalado en fo
 ```console
 npm install -g nodemon
 ```
+
+Asimismo, se deben instalar en forma global los paquetes de ``forever`` y ``pm2``:
+```condole
+> npm install forever -g
+> npm install pm2 -g
+```
+
+
+
 El siguiente script ejecuta el servidor utilizando ``nodemon`` utilizando el puerto __8080__ por defecto 
 ```console
 > npm run dev 

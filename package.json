@@ -6,8 +6,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "dev:8081": "nodemon server.js -p 8081",
+    "dev:fork": "nodemon server.js",
+    "dev:cluster":"nodemon server.js -m CLUSTER",
+    "dev:fork:8081": "nodemon server.js -p 8081",
+    "dev:cluster:8081": "nodemon server.js -p 8081 -mode CLUSTER",
     "start": "node server.js",
     "build:db": "node src/batch/createDbTables.js"
   },
