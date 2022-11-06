@@ -7,9 +7,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:fork": "nodemon server.js",
+    "dev:fork:8081": "nodemon server.js -p 8081 -m FORK",
     "dev:cluster":"nodemon server.js -m CLUSTER",
-    "dev:fork:8081": "nodemon server.js -p 8081",
     "dev:cluster:8081": "nodemon server.js -p 8081 -mode CLUSTER",
+    "forever:8080": "forever --watch start server.js -p 8080 -mode FORK",
+    "forever:8081": "forever --watch start server.js -p 8081 -mode FORK",
+    "pm2:fork:8080": "pm2 start server.js --watch --name='ecommerce-8080' -- -p 8080 -m FORK",
+    "pm2:fork:8081": "pm2 start server.js --watch --name='ecommerce-8081' -- -p 8081 -m FORK",
+    "pm2:cluster:8080": "pm2 start server.js --watch -i max --name='ecommerce-cluster-8080' -- -p 8080",
+    "pm2:cluster:8081": "pm2 start server.js --watch -i max --name='ecommerce-cluster-8081' -- -p 8081",
     "start": "node server.js",
     "build:db": "node src/batch/createDbTables.js"
   },

@@ -2,32 +2,25 @@
 
 ## Consigna 1:
 
-Sobre el proyecto del último desafío entregable, mover todas las claves y credenciales utilizadas a un archivo __.env__, y cargarlo mediante la librería __dotenv__.
+Tomando con base el proyecto que vamos realizando, agregar un parámetro más en la ruta de comando que permita ejecutar al servidor en modo fork o cluster. Dicho parámetro será 'FORK' en el primer caso y 'CLUSTER' en el segundo, y de no pasarlo, el servidor iniciará en modo fork.
+- Agregar en la vista info, el número de procesadores presentes en el servidor.
+- Ejecutar el servidor (modos FORK y CLUSTER) con nodemon verificando el número de procesos tomados por node.
+- Ejecutar el servidor (con los parámetros adecuados) utilizando Forever, verificando su correcta operación. Listar los procesos por Forever y por sistema operativo.
+- Ejecutar el servidor (con los parámetros adecuados: modo FORK) utilizando PM2 en sus modos modo fork y cluster. Listar los procesos por PM2 y por sistema operativo.
+- Tanto en Forever como en PM2 permitir el modo escucha, para que la actualización del código del servidor se vea reflejado inmediatamente en todos los procesos.
+- Hacer pruebas de finalización de procesos fork y cluster en los casos que corresponda.
 
-La única configuración que no va a ser manejada con esta librería va a ser el puerto de escucha del servidor. Éste deberá ser leído de los argumento pasados por línea de comando, usando alguna librería (minimist o yargs). En el caso de no pasar este parámetro por línea de comandos, conectar por defecto al puerto 8080.  
-
-Observación: por el momento se puede dejar la elección de sesión y de persistencia explicitada en el código mismo. Más adelante haremos también parametrizable esta configuración.  
 
 ## Consigna 2:
+Configurar Nginx para balancear cargas de nuestro servidor de la siguiente manera:  
 
-Agregar una ruta '/info' que presente en una vista sencilla los siguientes datos:  
+Redirigir todas las consultas a /api/randoms a un cluster de servidores escuchando en el puerto 8081. El cluster será creado desde node utilizando el módulo nativo cluster.  
 
-- Argumentos de entrada
-- Path de ejecución
-- Nombre de la plataforma (sistema operativo)
-- Process id
-- Versión de node.js
-- Carpeta del proyecto
-- Memoria total reservada (rss)
+El resto de las consultas, redirigirlas a un servidor individual escuchando en el puerto 8080.  
+Verificar que todo funcione correctamente.  
 
-## Consigna 3:
+Luego, modificar la configuración para que todas las consultas a /api/randoms sean redirigidas a un cluster de servidores gestionado desde nginx, repartiéndolas equitativamente entre 4 instancias escuchando en los puertos 8082, 8083, 8084 y 8085 respectivamente.
 
-Agregar otra ruta '/api/randoms' que permita calcular un cantidad de números aleatorios en el rango del 1 al 1000 especificada por parámetros de consulta (query).  
-Por ej: /randoms?cant=20000.  
-Si dicho parámetro no se ingresa, calcular 100.000.000 números.  
-El dato devuelto al frontend será un objeto que contendrá como claves los números random generados junto a la cantidad de veces que salió cada uno. Esta ruta no será bloqueante (utilizar el método fork de child process). Comprobar el no bloqueo con una cantidad de 500.000.000 de randoms.  
-
-Observación: utilizar routers y apis separadas para esta funcionalidad.
 
 
 ## Ejecución en modo desarrollo
@@ -43,25 +36,106 @@ Asimismo, se deben instalar en forma global los paquetes de ``forever`` y ``pm2`
 > npm install pm2 -g
 ```
 
+### Ejecución con _nodemon_
+
+- Modo __fork__
+
+    - El siguiente script ejecuta el servidor utilizando ``nodemon`` utilizando el puerto __8080__ por defecto 
+    ```console
+    > npm run dev:fork 
+    ```
+    - El siguiente script ejecuta el servidor utilizando ``nodemon`` y le agrega el argumento en linea de comando ``-p 8081``
+
+    ```console
+    > npm run dev:fork:8081 
+    ```
+
+- Modo __cluster__
+
+  - El siguiente script ejecuta el servidor en modo cluster utilizando ``nodemon`` utilizando el puerto __8080__ por defecto
+    ```console
+    > npm run dev:cluster
+    ```
+
+  - El siguiente script ejecuta el servidor en modo cluster utilizando ``nodemon`` utilizando el puerto __8081__
+    ```console
+    > npm run dev:cluster:8081
+    ```
+
+- También se pueden utilizar los siguientes comandos:
+
+    ```console
+    > nodemon server.js [ -p <number> | --port <number> ] [ -m <FORK | CLUSTER> | --mode <FORK | CLUSTER>]
+    ```
+
+### Ejecución con _forever_ (Modo watch)
+
+- El siguiente script ejecuta el servidor con ``forever`` en el puerto __8080__.
+    ```console
+    > npm run forever:8080
+    ```
+
+- El siguiente script ejecuta el servidor con ``forever`` en el puerto __8081__.
+    ```console
+    > npm run forever:8081
+    ```
+- También se pueden utilizar el siguiente comando:
+    ```console
+    > forever [ -w | --watch ] start server.js [ -p <number> | --port <number> ] [ -m <FORK | CLUSTER> | --mode <FORK | CLUSTER>]
+    ```
+- Listar procesos de __forever__
+    ```console
+    > forever list
+    ```
+- Detener procesos de __forever__
+    ```console
+    > forever stop <Id|Uid|Pid|Index|Script>
+    ```
+
+    ```console
+    > forever stopall
+    ```
+
+### Ejecución con _PM2_ (Modo watch)
+
+- Modo __fork__
+
+  ```console
+  > npm run pm2:fork:8080
+  ```
+  
+  ó
+  
+  ```console
+  > npm run pm2:fork:8081
+  ```
+
+  ó
+
+  ```console
+  > pm2 start server.js --watch [--name="<name>"] -- [-p <port_number> | --port <port_number>]
+  ```
+
+- Modo __cluster__
+
+  ```console
+  > npm run pm2:cluster:8080
+  ```
+
+  ó
+
+  ```console
+  > npm run pm2:cluster:8081
+  ```
+
+  ó
+
+  ```console
+  > pm2 start server.js --watch -i max [--name="<name>"] -- [-p <port_number> | --port <port_number>]
+  ```
 
 
-El siguiente script ejecuta el servidor utilizando ``nodemon`` utilizando el puerto __8080__ por defecto 
-```console
-> npm run dev 
-```
-El siguiente script ejecuta el servidor utilizando ``nodemon`` y le agrega el argumento en linea de comando ``-p 8081``
-
-```console
-> npm run dev:8081 
-```
-
-Tambien se pueden utilizar los siguientes comandos:
-
-```console
-> nodemon server.js [ -p <number> | --port <number> ] 
-```
-
-## Ejecución
+## Ejecución en producción
 
 ```console
 > npm start
@@ -69,5 +143,5 @@ Tambien se pueden utilizar los siguientes comandos:
 ó
 
 ```console
-> node server.js [ -p <number> | --port <number> ] 
+> node server.js [ -p <number> | --port <number> ] [ -m <FORK | CLUSTER> | --mode <FORK | CLUSTER>]
 ```
