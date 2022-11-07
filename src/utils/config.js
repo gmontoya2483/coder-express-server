@@ -4,7 +4,7 @@ import minimist from 'minimist';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 
-const options = {alias: {port: 'p'}, default: {port: 8080}};
+const options = {alias: {port: 'p', mode: 'm'}, default: {port: 8080, mode: 'FORK'}};
 const args = minimist(process.argv.slice(2), options);
 dotenv.config();
 
@@ -14,6 +14,7 @@ const __dirname = dirname(__filename);
 export const config = {
     server: {
         port: args.port,
+        mode: args.mode
     },
     stock_db: {
         client: 'mysql',
