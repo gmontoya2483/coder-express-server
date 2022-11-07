@@ -135,6 +135,13 @@ Asimismo, se deben instalar en forma global los paquetes de ``forever`` y ``pm2`
   ```
 
 
+## Cluster nginx
+
+Se adjuntan 2 archivos en la carpeta nginx_config:
+
+- ``nginx.conf_1``: Redirige todas las consultas a /api/randoms a un cluster de servidores escuchando en el puerto __8081__ y el resto de las peticiones al puerto __8080__.
+- ``nginx.conf_2``: Todas las consultas a /api/randoms son redirigidas a un cluster de servidores gestionado desde nginx, repartiéndolas equitativamente entre 4 instancias escuchando en los puertos 8082, 8083, 8084 y 8085 respectivamente.
+
 ## Ejecución en producción
 
 ```console
