@@ -1,4 +1,5 @@
 import express from "express";
+import os from 'os';
 export const routerInfo = express.Router();
 
 routerInfo.get('/', async (req, res) => {
@@ -10,7 +11,8 @@ routerInfo.get('/', async (req, res) => {
         path: process.cwd(),
         execPath: process.execPath,
         nodeVersion: process.version,
-        reservedMemory: process.memoryUsage.rss()
+        reservedMemory: process.memoryUsage.rss(),
+        cpus: os.cpus().length
     }
     return res.render('info', {info, username});
 });
