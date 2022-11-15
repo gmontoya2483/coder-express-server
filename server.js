@@ -19,6 +19,10 @@ import {routerLogin} from "./src/routes/login.routes.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 import {normalizeData} from "./src/utils/messages.normalize.js";
 
+/* ------------------- Modules ------------------- */
+import { logger } from "./src/utils/logger.js";
+
+
 //session persistencia mongo
 import connectMongo from 'connect-mongo';
 import {Authorization} from "./src/middlewares/auth.middleware.js";
@@ -28,6 +32,7 @@ import {routerRegister} from "./src/routes/register.routes.js";
 import passport from "passport";
 import {routerInfo} from "./src/routes/info.routes.js";
 import {routerApiRandoms} from "./src/routes/api.randoms.routes.js";
+import {LogRequest} from "./src/middlewares/log-request.middleware.js";
 
 // MongoStore (session)
 const MongoStore = connectMongo.create({
@@ -81,19 +86,28 @@ app.get('/',[Authorization], async (req, res) => {
     res.render('new-product', { products, username: req.session.username });
 });
 
-app.use('/productos', [Authorization] ,routerProductos);
-app.use('/api/productos' ,routerApiProductos );
-app.use('/api/productos-test',routerApiProductosTest);
-app.use('/api/randoms',routerApiRandoms);
-app.use('/chat',  [Authorization], routerChat);
-app.use('/login', routerLogin);
-app.use('/register', routerRegister);
-app.use('/logout', [Authorization], routerLogout);
-app.use('/info', [Authorization], routerInfo);
+app.use('/productos', [LogRequest, Authorization] ,routerProductos);
+app.use('/api/productos' ,[LogRequest],routerApiProductos );
+app.use('/api/productos-test',[LogRequest], routerApiProductosTest);
+app.use('/api/randoms',[LogRequest],routerApiRandoms);
+app.use('/chat',  [LogRequest, Authorization], routerChat);
+app.use('/login', [LogRequest], routerLogin);
+app.use('/register',[LogRequest], routerRegister);
+app.use('/logout', [LogRequest, Authorization], routerLogout);
+app.use('/info', [LogRequest], routerInfo);
+
+app.use((req, res)=> {
+    logger.warn(`Ruta ${req.originalUrl} método ${req.method} no implementada.`);
+    res.status(400).send({
+        'error': -2,
+        'description': `Ruta ${req.originalUrl} método ${req.method} no implementada.`
+    });
+
+});
 
 /* ------------------- Middleware Errores ------------------- */
 app.use(function(err, req, res, next) {
-    console.error(err.stack);
+    logger.error(err.stack);
     res.status(500).send('Something broke!');
 });
 
@@ -107,16 +121,16 @@ if (cluster.isPrimary && config.server.mode === 'CLUSTER') {
     }
 
     cluster.on('exit', worker => {
-        console.log(`Worker ${process.pid} ${worker.id} ${worker.pid} finalizo ${new Date().toLocaleString()}`);
+        logger.info(`Worker ${process.pid} ${worker.id} ${worker.pid} finalizo ${new Date().toLocaleString()}`);
         cluster.fork();
     });
 
 } else {
     const server = httpServer.listen(config.server.port, ()=> {
-        console.log(`Server on ->  ${JSON.stringify(server.address())}`);
+        logger.info(`Server on ->  ${JSON.stringify(server.address())}`);
     });
     server.on('error', error => {
-        console.error(`Error en el servidor ${error}`);
+        logger.error(`Error en el servidor ${error}`);
     });
 }
 
@@ -128,7 +142,7 @@ io.on('connection', (socket)=>{
 
     // Chat handler
     socket.on('from-client-chat', async () => {
-        console.log(`Cliente ${ socket.id } conectado al chat`);
+        logger.info(`Cliente ${ socket.id } conectado al chat`);
         // const contenedor = new ContenedorKnex(config.chat_db, 'mensajes')
         const contenedor = new ChatsDao();
         const messages = await contenedor.getAll();
@@ -148,7 +162,7 @@ io.on('connection', (socket)=>{
 
     // Products handler
     socket.on('from-client-products', () => {
-        console.log(`Cliente ${ socket.id } conectado a Productos`);
+        logger.info(`Cliente ${ socket.id } conectado a Productos`);
     })
 
     socket.on('from-client-new-product', async (product) => {

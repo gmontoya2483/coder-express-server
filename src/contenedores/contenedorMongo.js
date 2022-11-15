@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
 import {config} from '../utils/config.js';
+import {logger} from "../utils/logger.js";
 
 
 const strConn = config.mongo_db.url
 mongoose.connect(strConn, config.mongo_db.options)
     .then(()=>{
-        console.log('Base de datos conectada!');
+        logger.info('Base de datos conectada!');
     })
     .catch((err) => {
-        console.error('No se pudo conectar a la base de datos', err)
+        logger.error('No se pudo conectar a la base de datos', err)
     })
 
 export class ContenedorMongo {
@@ -49,7 +50,7 @@ export class ContenedorMongo {
         try {
             return  await this.entityModel.findById(id);
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo buscar entidad - ${this.entityModel.modelName}`);
         }
     }
@@ -58,7 +59,7 @@ export class ContenedorMongo {
         try {
             return  await this.entityModel.findOne({email});
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo buscar entidad - ${this.entityModel.modelName}`);
         }
     }
@@ -68,7 +69,7 @@ export class ContenedorMongo {
         try {
             return await this.entityModel.findByIdAndUpdate(id, obj, {new: true});
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo modificar entidad - ${this.entityModel.modelName}`);
         }
     }
