@@ -1,5 +1,6 @@
 import fs from "fs";
-import {v4 as uuid} from 'uuid'
+import {v4 as uuid} from 'uuid';
+import {logger} from "../utils/logger.js";
 
 
 export class ContenedorArchivo {
@@ -11,6 +12,7 @@ export class ContenedorArchivo {
         try {
             await fs.promises.writeFile(this.fileName, JSON.stringify(objs,null,2), 'utf-8');
         } catch (error) {
+            logger.error(error);
             throw new Error(error);
         }
     }
@@ -45,6 +47,7 @@ export class ContenedorArchivo {
             const objs = await fs.promises.readFile(this.fileName, 'utf-8');
             return JSON.parse(objs);
         } catch (error) {
+            logger.error(error);
             return [];
         }
     }

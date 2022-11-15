@@ -5,7 +5,7 @@
   "description": "Pug",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node benchmark.js",
     "dev:fork": "nodemon server.js",
     "dev:fork:8081": "nodemon server.js -p 8081 -m FORK",
     "dev:cluster": "nodemon server.js -m CLUSTER",
@@ -17,13 +17,18 @@
     "pm2:cluster:8080": "pm2 start server.js --watch -i max --name='ecommerce-cluster-8080' -- -p 8080",
     "pm2:cluster:8081": "pm2 start server.js --watch -i max --name='ecommerce-cluster-8081' -- -p 8081",
     "start": "node server.js",
-    "build:db": "node src/batch/createDbTables.js"
+    "start:0x": "0x server.js",
+    "build:db": "node src/batch/createDbTables.js",
+    "profiler:prof": "node --prof server.js",
+    "profile:artillery": "artillery quick --count 20 -n 50 'http://localhost:8080/info' > result_info_prof.txt",
+    "inspect": "node --inspect server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^7.5.0",
+    "autocannon": "^7.10.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.1.0",
     "better-sqlite3": "^7.6.2",
@@ -34,6 +39,7 @@
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "knex": "^2.3.0",
+    "log4js": "^6.7.0",
     "minimist": "^1.2.7",
     "mongoose": "^6.6.7",
     "mysql": "^2.18.1",
