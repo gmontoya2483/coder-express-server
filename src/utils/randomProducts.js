@@ -11,7 +11,6 @@ export const generateRandomProduct = () => {
 
 
 export const generate_x_randomProducts = (x=10) => {
-    console.log('entro a generar productos test')
     let products = []
     for (let i = 1; i <= x; i++) {
         products.push({...generateRandomProduct(), id: i})

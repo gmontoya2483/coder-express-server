@@ -1,0 +1,199 @@
+Statistical profiling result from isolate-0000023E169545A0-18216-v8.log, (16245 ticks, 2 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+  15422   94.9%          C:\WINDOWS\SYSTEM32\ntdll.dll
+    758    4.7%          C:\Program Files\nodejs\node.exe
+      2    0.0%          C:\WINDOWS\System32\WS2_32.dll
+      2    0.0%          C:\WINDOWS\System32\KERNEL32.DLL
+      1    0.0%          C:\WINDOWS\System32\KERNELBASE.dll
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      5    0.0%    8.3%  LazyCompile: *resolve node:path:158:10
+      3    0.0%    5.0%  LazyCompile: *parse C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\parser.js:269:30
+      3    0.0%    5.0%  LazyCompile: *next C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\parser.js:478:32
+      2    0.0%    3.3%  LazyCompile: *wrap C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\code-gen.js:101:22
+      2    0.0%    3.3%  LazyCompile: *getEncodingOps node:buffer:679:24
+      2    0.0%    3.3%  LazyCompile: *deserializeObject C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\bson\lib\parser\deserializer.js:65:27
+      2    0.0%    3.3%  LazyCompile: *SourceNode C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\source-map\lib\source-node.js:35:20
+      1    0.0%    1.7%  RegExp: ^(?:\{\{(~)?\*?)
+      1    0.0%    1.7%  RegExp: ^(?:\{\{(~)?>)
+      1    0.0%    1.7%  RegExp: ^(?:\s+)
+      1    0.0%    1.7%  RegExp: ^(?:[^\x00]*?(?=(\{\{)))
+      1    0.0%    1.7%  RegExp: \r?\n\s*?$
+      1    0.0%    1.7%  LazyCompile: *toNamespacedPath node:path:618:19
+      1    0.0%    1.7%  LazyCompile: *step C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express-handlebars\dist\express-handlebars.js:31:18
+      1    0.0%    1.7%  LazyCompile: *slice node:buffer:594:12
+      1    0.0%    1.7%  LazyCompile: *serializeInto C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\bson\lib\parser\serializer.js:553:23
+      1    0.0%    1.7%  LazyCompile: *serializeBinary C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\bson\lib\parser\serializer.js:462:25
+      1    0.0%    1.7%  LazyCompile: *resolvePossibleLambda C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\javascript-compiler.js:527:56
+      1    0.0%    1.7%  LazyCompile: *relative node:path:496:11
+      1    0.0%    1.7%  LazyCompile: *processTicksAndRejections node:internal/process/task_queues:68:35
+      1    0.0%    1.7%  LazyCompile: *normalizeString node:path:66:25
+      1    0.0%    1.7%  LazyCompile: *anonymous C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\parser.js:12:42
+      1    0.0%    1.7%  LazyCompile: *SourceNode_walk C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\source-map\lib\source-node.js:221:53
+      1    0.0%    1.7%  LazyCompile: *Module._nodeModulePaths node:internal/modules/cjs/loader:583:37
+      1    0.0%    1.7%  LazyCompile: *Glob._process C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:295:36
+      1    0.0%    1.7%  LazyCompile: *<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express-handlebars\dist\express-handlebars.js:227:47
+      1    0.0%    1.7%  Function: ^stat node:fs:1467:14
+      1    0.0%    1.7%  Function: ^startSession C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\mongo_client.js:232:17
+      1    0.0%    1.7%  Function: ^send C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\response.js:111:25
+      1    0.0%    1.7%  Function: ^readSync node:fs:684:18
+      1    0.0%    1.7%  Function: ^onsave C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express-session\index.js:335:41
+      1    0.0%    1.7%  Function: ^onMessage C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\cmap\connection.js:156:14
+      1    0.0%    1.7%  Function: ^nativeModuleRequire node:internal/bootstrap/loaders:332:29
+      1    0.0%    1.7%  Function: ^maybePromise C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\utils.js:344:22
+      1    0.0%    1.7%  Function: ^listOnTimeout node:internal/timers:507:25
+      1    0.0%    1.7%  Function: ^getInfo file:///C:/Users/Gabriel/Desktop/Backend-Coder/Entregas/coder-express-server/src/routes/info.routes.js:21:17
+      1    0.0%    1.7%  Function: ^get C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\log4js\node_modules\debug\src\common.js:125:9
+      1    0.0%    1.7%  Function: ^concat node:buffer:536:32
+      1    0.0%    1.7%  Function: ^Program C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\compiler.js:113:28
+      1    0.0%    1.7%  Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\source-map\lib\source-node.js:174:29
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongoose\node_modules\mongodb\lib\operations\connect.js:53:28
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\operations\execute_operation.js:16:48
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\mongo_client.js:235:31
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\cursor\find_cursor.js:54:79
+      1    0.0%    1.7%  Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express-handlebars\dist\express-handlebars.js:164:57
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+     58    0.4%   96.7%  JavaScript
+      0    0.0%    0.0%  C++
+     42    0.3%   70.0%  GC
+  16185   99.6%          Shared libraries
+      2    0.0%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+  15422   94.9%  C:\WINDOWS\SYSTEM32\ntdll.dll
+
+    758    4.7%  C:\Program Files\nodejs\node.exe
+    495   65.3%    C:\Program Files\nodejs\node.exe
+    134   27.1%      Function: ^handleWriteReq node:internal/stream_base_commons:45:24
+     93   69.4%        LazyCompile: *writeOrBuffer node:internal/streams/writable:365:23
+     88   94.6%          LazyCompile: *_write node:internal/streams/writable:283:16
+     88  100.0%            Function: ^Writable.write node:internal/streams/writable:333:36
+      5    5.4%          Function: ^_write node:internal/streams/writable:283:16
+      5  100.0%            Function: ^Writable.write node:internal/streams/writable:333:36
+     41   30.6%        Function: ^writeGeneric node:internal/stream_base_commons:147:22
+     41  100.0%          Function: ^Socket._writeGeneric node:net:791:42
+     41  100.0%            Function: ^Socket._write node:net:828:35
+     52   10.5%      Function: ^compileFunction node:vm:308:25
+     52  100.0%        Function: ^wrapSafe node:internal/modules/cjs/loader:1017:18
+     52  100.0%          Function: ^Module._compile node:internal/modules/cjs/loader:1059:37
+     51   98.1%            Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      1    1.9%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1114:37
+     25    5.1%      Function: ^moduleStrategy node:internal/modules/esm/translators:112:56
+     25  100.0%        Function: ^moduleProvider node:internal/modules/esm/loader:322:28
+     25  100.0%          C:\Program Files\nodejs\node.exe
+     19    3.8%      C:\Program Files\nodejs\node.exe
+      2   10.5%        Function: ^splitRoot node:fs:2375:33
+      2  100.0%          Function: ^realpathSync node:fs:2425:22
+      2  100.0%            Function: ^toRealPath node:internal/modules/cjs/loader:393:20
+      2   10.5%        Function: ^readPackage node:internal/modules/cjs/loader:290:21
+      2  100.0%          Function: ^readPackageScope node:internal/modules/cjs/loader:321:26
+      2  100.0%            Function: ^trySelf node:internal/modules/cjs/loader:441:17
+      2   10.5%        Function: ^fromString C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\utils.js:315:22
+      2  100.0%          Function: ^ns C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\utils.js:293:12
+      2  100.0%            Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\cursor\abstract_cursor.js:428:42
+      1    5.3%        LazyCompile: ~parseOpts C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\@mapbox\node-pre-gyp\lib\node-pre-gyp.js:144:37
+      1  100.0%          LazyCompile: ~Run C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\@mapbox\node-pre-gyp\lib\node-pre-gyp.js:78:13
+      1  100.0%            LazyCompile: ~exports.find C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\@mapbox\node-pre-gyp\lib\pre-binding.js:17:24
+      1    5.3%        LazyCompile: *reduceToSingleString node:internal/util/inspect:1902:30
+      1  100.0%          LazyCompile: *formatRaw node:internal/util/inspect:820:19
+      1  100.0%            LazyCompile: *formatValue node:internal/util/inspect:745:21
+      1    5.3%        LazyCompile: *parse C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\parser.js:269:30
+      1  100.0%          Function: ^parseWithoutProcessing C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\base.js:33:32
+      1  100.0%            Function: ^parse C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\base.js:51:15
+      1    5.3%        LazyCompile: *appendEscaped C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\javascript-compiler.js:416:40
+      1  100.0%          LazyCompile: *compile C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\handlebars\dist\cjs\handlebars\compiler\javascript-compiler.js:73:28
+      1  100.0%            LazyCompile: *<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express-handlebars\dist\express-handlebars.js:227:47
+      1    5.3%        LazyCompile: *Glob._process C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:295:36
+      1  100.0%          Function: ^Glob._processGlobStar2 C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:631:45
+      1  100.0%            Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:625:43
+      1    5.3%        Function: ^removeColors node:internal/util:76:22
+      1  100.0%          Function: ^isBelowBreakLength node:internal/util/inspect:1878:28
+      1  100.0%            Function: ^reduceToSingleString node:internal/util/inspect:1902:30
+      1    5.3%        Function: ^pipe C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\send\index.js:506:43
+      1  100.0%          Function: ^serveStatic C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\serve-static\index.js:72:31
+      1  100.0%            LazyCompile: *trim_prefix C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\router\index.js:293:23
+      1    5.3%        Function: ^header C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\response.js:777:29
+      1  100.0%          Function: ^contentType C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\response.js:619:32
+      1  100.0%            Function: ^send C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\response.js:111:25
+      1    5.3%        Function: ^format C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\content-type\index.js:65:17
+      1  100.0%          Function: ^setCharset C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\utils.js:248:41
+      1  100.0%            Function: ^send C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\response.js:111:25
+      1    5.3%        Function: ^databaseNamespace C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\utils.js:377:27
+      1  100.0%          Function: ^Msg C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\cmap\commands.js:317:16
+      1  100.0%            Function: ^command C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\cmap\connection.js:251:12
+      1    5.3%        Function: ^compileForPublicLoader node:internal/bootstrap/loaders:246:25
+      1  100.0%          Function: ^loadNativeModule node:internal/modules/cjs/helpers:44:26
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:757:24
+      1    5.3%        Function: ^clone C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\sessions.js:564:17
+      1  100.0%          Function: ^completeEndSession C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\sessions.js:138:40
+      1  100.0%            Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\mongodb\lib\sessions.js:133:52
+      1    5.3%        C:\Program Files\nodejs\node.exe
+      1  100.0%          Function: ^Glob._processReaddir2 C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:375:44
+      1  100.0%            Function: ^<anonymous> C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\glob\glob.js:370:43
+     15    3.0%      Function: ^writevGeneric node:internal/stream_base_commons:122:23
+     15  100.0%        Function: ^Socket._writeGeneric node:net:791:42
+     15  100.0%          Function: ^Socket._writev node:net:823:36
+     15  100.0%            Function: ^doWrite node:internal/streams/writable:398:17
+     15    3.0%      Function: ^stat node:internal/modules/cjs/loader:151:14
+      9   60.0%        Function: ^tryFile node:internal/modules/cjs/loader:384:17
+      8   88.9%          Function: ^tryExtensions node:internal/modules/cjs/loader:400:23
+      8  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      1   11.1%          Function: ^tryPackage node:internal/modules/cjs/loader:338:20
+      1  100.0%            Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      6   40.0%        Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      6  100.0%          Function: ^Module._resolveFilename node:internal/modules/cjs/loader:848:35
+      4   66.7%            Function: ^Module._load node:internal/modules/cjs/loader:757:24
+      2   33.3%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+     15    3.0%      Function: ^realpathSync node:fs:2425:22
+     15  100.0%        Function: ^toRealPath node:internal/modules/cjs/loader:393:20
+     13   86.7%          Function: ^tryFile node:internal/modules/cjs/loader:384:17
+     13  100.0%            Function: ^tryExtensions node:internal/modules/cjs/loader:400:23
+      1    6.7%          LazyCompile: ~tryFile node:internal/modules/cjs/loader:384:17
+      1  100.0%            Function: ^tryExtensions node:internal/modules/cjs/loader:400:23
+      1    6.7%          Function: ^Module._findPath node:internal/modules/cjs/loader:494:28
+      1  100.0%            Function: ^Module._resolveFilename node:internal/modules/cjs/loader:848:35
+     11    2.2%      Function: ^cpus node:os:133:14
+     11  100.0%        Function: ^getInfo file:///C:/Users/Gabriel/Desktop/Backend-Coder/Entregas/coder-express-server/src/routes/info.routes.js:21:17
+     11  100.0%          Function: ^<anonymous> file:///C:/Users/Gabriel/Desktop/Backend-Coder/Entregas/coder-express-server/src/routes/info.routes.js:6:21
+      9   81.8%            LazyCompile: *handle C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\router\layer.js:86:49
+      2   18.2%            Function: ^handle C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\router\layer.js:86:49
+     10    2.0%      Function: ^statSync node:fs:1543:18
+     10  100.0%        Function: ^tryStat C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\view.js:174:17
+     10  100.0%          Function: ^resolve C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\view.js:146:42
+     10  100.0%            Function: ^lookup C:\Users\Gabriel\Desktop\Backend-Coder\Entregas\coder-express-server\node_modules\express\lib\view.js:104:40
+      8    1.6%      Function: ^openSync node:fs:576:18
+      8  100.0%        Function: ^readFileSync node:fs:450:22
+      8  100.0%          Function: ^Module._extensions..js node:internal/modules/cjs/loader:1114:37
+      6   75.0%            Function: ^Module.load node:internal/modules/cjs/loader:969:33
+      2   25.0%            LazyCompile: *Module._load node:internal/modules/cjs/loader:757:24
+      5    1.0%      Function: ^compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      4   80.0%        Function: ^nativeModuleRequire node:internal/bootstrap/loaders:332:29
+      1   25.0%          LazyCompile: ~initCJSParse node:internal/modules/esm/translators:58:28
+      1  100.0%            LazyCompile: ~commonjsStrategy node:internal/modules/esm/translators:148:60
+      1   25.0%          Function: ~<anonymous> node:http:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1   25.0%          Function: ~<anonymous> node:dgram:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1   25.0%          Function: ~<anonymous> node:crypto:1:1
+      1  100.0%            Function: ^compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1   20.0%        Function: ^compileForPublicLoader node:internal/bootstrap/loaders:246:25
+      1  100.0%          Function: ^loadNativeModule node:internal/modules/cjs/helpers:44:26
+      1  100.0%            Function: ^Module._load node:internal/modules/cjs/loader:757:24
+
