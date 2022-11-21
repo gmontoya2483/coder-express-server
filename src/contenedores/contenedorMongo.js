@@ -38,7 +38,8 @@ export class ContenedorMongo {
 
     async getAll() {
         try {
-            return  await this.entityModel.find();
+            const resultData =   await this.entityModel.find();
+            return resultData.map((item) => item.toJSON());
         } catch (err) {
             console.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo buscar entidades - ${this.entityModel.modelName}`);
@@ -73,5 +74,7 @@ export class ContenedorMongo {
             throw new Error(`No se pudo modificar entidad - ${this.entityModel.modelName}`);
         }
     }
+
+    closeConnection() {}
 
 }
