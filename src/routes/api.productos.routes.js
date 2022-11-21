@@ -1,20 +1,21 @@
 import express  from 'express';
-import { ContenedorKnex } from "../contenedores/contenedorKnex.js";
-import {config} from "../utils/config.js";
-import ProductosDaoKnex from "../daos/productos/productosDaoKnex.js";
+// import { ContenedorKnex } from "../contenedores/contenedorKnex.js";
+// import {config} from "../utils/config.js";
+// import ProductosDaoKnex from "../daos/productos/productosDaoKnex.js";
+import { ProductosDao } from "../daos/index.js"
 
 export const routerApiProductos = express.Router();
 
 routerApiProductos.get('/', async (req, resp)=> {
     // const contenedor = new ContenedorKnex(config.stock_db, 'productos');
-    const contenedor = new ProductosDaoKnex();
+    const contenedor = new ProductosDao();
     const productos = await contenedor.getAll();
     await contenedor.closeConnection();
     resp.json(productos);
 });
 
 routerApiProductos.get('/:id', async (req, resp)=> {
-    const contenedor = new ProductosDaoKnex();
+    const contenedor = new ProductosDao();
     const [user,] = await contenedor.getById(req.params.id);
     await contenedor.closeConnection();
     return (user)
@@ -24,7 +25,7 @@ routerApiProductos.get('/:id', async (req, resp)=> {
 
 routerApiProductos.delete('/:id', async(req, resp) => {
     const id = +req.params.id;
-    const contenedor = new ProductosDaoKnex();
+    const contenedor = new ProductosDao();
     const deletedId = await contenedor.deleteById(id);
     await contenedor.closeConnection();
     return (deletedId !== 0)
@@ -33,7 +34,7 @@ routerApiProductos.delete('/:id', async(req, resp) => {
 });
 
 routerApiProductos.post('/', async( req, resp) => {
-    const contenedor = new ProductosDaoKnex();
+    const contenedor = new ProductosDao();
     const { title, price, thumbnail } = req.body;
     const priceFloat = parseFloat(price);
     const [newProductoId,] = await contenedor.create({title, price:priceFloat, thumbnail});
@@ -43,7 +44,7 @@ routerApiProductos.post('/', async( req, resp) => {
 
 routerApiProductos.put('/:id', async( req, resp) => {
     const id = +req.params.id;
-    const contenedor = new ProductosDaoKnex();
+    const contenedor = new ProductosDao();
     const { title, price, thumbnail } = req.body;
     const priceFloat = parseFloat(price);
     const data = {id, title, price:priceFloat, thumbnail }

@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 export const config = {
     server: {
-        port: args.port,
+        port: process.env.PORT || args.port,
         mode: args.mode
     },
     stock_db: {
@@ -33,7 +33,7 @@ export const config = {
         useNullAsDefault: true
     },
     axios : {
-        baseUrl: `http://localhost:${args.port}`
+        baseUrl: `https://gmontoya-coder.herokuapp.com:${process.env.PORT || args.port}`
     },
     mongo_db: {
         secret_key: process.env.CODER_MONGO_DB_SECRET,
