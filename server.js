@@ -80,7 +80,8 @@ app.engine('hbs', exphbs.engine({
 
 /* ------------------- Routes ------------------- */
 app.get('/',[Authorization], async (req, res) => {
-    const contenedor = new ContenedorKnex(config.stock_db, 'productos');
+    // const contenedor = new ContenedorKnex(config.stock_db, 'productos');
+    const contenedor = new ProductosDao();
     const products = await contenedor.getAll();
     await contenedor.closeConnection();
     res.render('new-product', { products, username: req.session.username });
