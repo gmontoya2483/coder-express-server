@@ -33,7 +33,7 @@ export const config = {
         useNullAsDefault: true
     },
     axios : {
-        baseUrl: `https://gmontoya-coder.herokuapp.com:${process.env.PORT || args.port}`
+        baseUrl: process.env.CODER_BASE_URL || `http://localhost:${process.env.PORT || args.port}`
     },
     mongo_db: {
         secret_key: process.env.CODER_MONGO_DB_SECRET,

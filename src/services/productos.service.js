@@ -1,4 +1,5 @@
 import { ProductosDao } from "../daos/index.js";
+import {generate_x_randomProducts} from "../utils/randomProducts.js";
 
 export class ProductosService {
 
@@ -29,6 +30,11 @@ export class ProductosService {
         const priceFloat = parseFloat(price);
         const data = {id, title, price:priceFloat, thumbnail }
         return  await this.contenedor.update(data);
+    }
+
+
+    getFakeProducts(cant = 5) {
+        return generate_x_randomProducts(cant)
     }
 
 
