@@ -1,8 +1,6 @@
 import express from 'express';
+import {renderChat} from "../controllers/chat.controller.js";
 export const routerChat = express.Router();
 
 
-routerChat.get('/', async (req, res) => {
-    const { email: username } = await req.user;
-    res.render('chat', {username} )
-})
+routerChat.get('/', renderChat);
