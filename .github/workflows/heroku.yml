@@ -13,6 +13,16 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "gmontoya-coder"
-          heroku_email: "gabi.montoya@gmail.com"
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          HD_CODER_STOCK_DB_HOST: ${{secrets.CODER_STOCK_DB_HOST}}
+          HD_CODER_STOCK_DB_USER: ${{secrets.CODER_STOCK_DB_USER}}
+          HD_CODER_STOCK_DB_PASSWORD: ${{secrets.CODER_STOCK_DB_PASSWORD}}
+          HD_CODER_STOCK_DB_DATABASE: ${{secrets.CODER_STOCK_DB_DATABASE}}
+          HD_CODER_CHAT_DB_FILENAME: ${{secrets.CODER_CHAT_DB_FILENAME}}
+          HD_CODER_MONGO_DB_SECRET: ${{secrets.CODER_MONGO_DB_SECRET}}
+          HD_CODER_MONGO_DB_URL: ${{secrets.CODER_MONGO_DB_URL}}
+          HD_CODER_BASE_URL: ${{secrets.CODER_BASE_URL}}
+
 
