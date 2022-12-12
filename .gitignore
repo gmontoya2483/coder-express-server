@@ -2,3 +2,4 @@
 .idea
 *.db3
 *.log
+.env

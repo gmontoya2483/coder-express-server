@@ -12,7 +12,6 @@ import os from 'os';
 import {config} from "./src/utils/config.js";
 import {routerProductos} from "./src/routes/productos.routes.js";
 import {routerChat} from "./src/routes/chat.routes.js";
-import {ContenedorKnex} from "./src/contenedores/contenedorKnex.js";
 import {routerApiProductos} from "./src/routes/api.productos.routes.js";
 import {routerApiProductosTest} from "./src/routes/api.productos-test.routes.js";
 import {routerLogin} from "./src/routes/login.routes.js";
@@ -33,6 +32,7 @@ import passport from "passport";
 import {routerInfo} from "./src/routes/info.routes.js";
 import {routerApiRandoms} from "./src/routes/api.randoms.routes.js";
 import {LogRequest} from "./src/middlewares/log-request.middleware.js";
+import {renderNuevoProducto} from "./src/controllers/productos.controller.js";
 
 // MongoStore (session)
 const MongoStore = connectMongo.create({
@@ -79,13 +79,8 @@ app.engine('hbs', exphbs.engine({
 
 
 /* ------------------- Routes ------------------- */
-app.get('/',[Authorization], async (req, res) => {
-    // const contenedor = new ContenedorKnex(config.stock_db, 'productos');
-    const contenedor = new ProductosDao();
-    const products = await contenedor.getAll();
-    await contenedor.closeConnection();
-    res.render('new-product', { products, username: req.session.username });
-});
+app.get('/',[Authorization], renderNuevoProducto);
+
 
 app.use('/productos', [LogRequest, Authorization] ,routerProductos);
 app.use('/api/productos' ,[LogRequest],routerApiProductos );

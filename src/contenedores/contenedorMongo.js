@@ -21,7 +21,7 @@ export class ContenedorMongo {
         try {
             return  await this.entityModel.create(data);
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo crear la entidad - ${this.entityModel.modelName}`);
         }
     }
@@ -31,7 +31,7 @@ export class ContenedorMongo {
         try {
             return await this.entityModel.findByIdAndDelete(id);
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo eliminar entidad - ${this.entityModel.modelName}`);
         }
     }
@@ -41,7 +41,7 @@ export class ContenedorMongo {
             const resultData =   await this.entityModel.find();
             return resultData.map((item) => item.toJSON());
         } catch (err) {
-            console.error(`${this.entityModel.modelName}, ${ err }`);
+            logger.error(`${this.entityModel.modelName}, ${ err }`);
             throw new Error(`No se pudo buscar entidades - ${this.entityModel.modelName}`);
         }
 
