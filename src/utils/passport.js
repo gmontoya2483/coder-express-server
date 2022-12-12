@@ -1,12 +1,9 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-// import {UsuariosDao} from "../daos/index.js";
 import {validateHash} from "./security.js";
 import {UsuarioService} from "../services/usuario.service.js";
 
 const LocalStrategy = Strategy;
-
-// const contenedor = new UsuariosDao();
 
 const usuarioService = new UsuarioService();
 

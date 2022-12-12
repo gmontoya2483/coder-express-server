@@ -33,6 +33,9 @@ export class ProductosService {
     }
 
 
+
+
+
     getFakeProducts(cant = 5) {
         return generate_x_randomProducts(cant)
     }
