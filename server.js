@@ -18,6 +18,12 @@ import {routerLogin} from "./src/routes/login.routes.js";
 import {ChatsDao, ProductosDao} from "./src/daos/index.js";
 import {normalizeData} from "./src/utils/messages.normalize.js";
 
+//GraphQL modules
+import { graphqlHTTP } from 'express-graphql';
+import ProductosSchema from "./src/graphql/schema.js";
+import {obtenerProductos} from "./src/graphql/resolvers.js";
+
+
 /* ------------------- Modules ------------------- */
 import { logger } from "./src/utils/logger.js";
 
@@ -33,6 +39,7 @@ import {routerInfo} from "./src/routes/info.routes.js";
 import {routerApiRandoms} from "./src/routes/api.randoms.routes.js";
 import {LogRequest} from "./src/middlewares/log-request.middleware.js";
 import {renderNuevoProducto} from "./src/controllers/productos.controller.js";
+
 
 // MongoStore (session)
 const MongoStore = connectMongo.create({
@@ -91,6 +98,16 @@ app.use('/login', [LogRequest], routerLogin);
 app.use('/register',[LogRequest], routerRegister);
 app.use('/logout', [LogRequest, Authorization], routerLogout);
 app.use('/info', [LogRequest], routerInfo);
+
+app.use('/api/graphql', graphqlHTTP({
+    schema: ProductosSchema,
+    rootValue: {
+        obtenerProductos
+
+    },
+    graphiql: true
+
+}));
 
 app.use((req, res)=> {
     logger.warn(`Ruta ${req.originalUrl} método ${req.method} no implementada.`);
